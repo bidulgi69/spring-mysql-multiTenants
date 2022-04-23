@@ -71,6 +71,8 @@ And you can also receive readOnly property from transactionManager. (.isCurrentT
         value = SlaveDataSourceProperties.transactionManager,
         readOnly = true
     )
+
+<img src="https://user-images.githubusercontent.com/17774927/164947212-17562b66-8ea3-4ba0-a559-27aef43ef134.png">
 <br><br>
 
 ## Run
@@ -178,15 +180,13 @@ And you can also receive readOnly property from transactionManager. (.isCurrentT
             Slave_IO_Running: Yes,
             Slave_SQL_Running: Yes,
             
-  <strong>We're all set!</strong>
-
+  <strong>We're all set!</strong><br><br>
+  
 - Build & Run java application
 
       ./gradlew bootjar && java -jar /build/libs/*.jar &
-      
-      
-<img src="https://user-images.githubusercontent.com/17774927/164947212-17562b66-8ea3-4ba0-a559-27aef43ef134.png">
-<br><br>
+            
+<br>
 
 ## References
 
