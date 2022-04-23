@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    master:
+      username: root
+      password: root
+      url: mysql://localhost:3306/world?characterEncoding=UTF-8&useSSL=false
+    slave:
+      username: root
+      password: root
+      url: mysql://localhost:3307/world?characterEncoding=UTF-8&useSSL=false
+
+logging:
+  level:
+    root: info

@@ -1,0 +1,32 @@
+version: "3.9"
+services:
+  mysql-master:
+    image: mysql
+    platform: linux/x86_64
+    hostname: 'master'
+    container_name: 'mysql-master'
+    ports:
+      - '3306:3306'
+    volumes:
+      - $PWD/mysql/master/conf:/etc/mysql/conf.d
+      - $PWD/mysql/master/data:/var/lib/mysql
+      - $PWD/mysql/master/log:/var/log/mysql
+      - $PWD/mysql/master/backup:/backup
+    env_file:
+      - .env
+  mysql-slave:
+    image: mysql
+    platform: linux/x86_64
+    hostname: 'slave'
+    container_name: 'mysql-slave'
+    ports:
+      - '3307:3306'
+    volumes:
+      - $PWD/mysql/slave/conf:/etc/mysql/conf.d
+      - $PWD/mysql/slave/data:/var/lib/mysql
+      - $PWD/mysql/slave/log:/var/log/mysql
+      - $PWD/mysql/slave/backup:/backup
+    env_file:
+      - .env
+    depends_on:
+      - mysql-master
