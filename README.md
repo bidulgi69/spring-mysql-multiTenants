@@ -156,7 +156,7 @@ And you can also receive readOnly property from transactionManager. (.isCurrentT
 
             # Master container
             # mysql
-            show master status\G;
+            show master status;
             +------------------+----------+--------------+------------------+-------------------+
             | File             | Position | Binlog_Do_DB | Binlog_Ignore_DB | Executed_Gtid_Set |
             +------------------+----------+--------------+------------------+-------------------+
