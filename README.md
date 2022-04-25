@@ -18,7 +18,7 @@ At this time, the `AbstractRoutingConnectionFactory` supported by R2dbc can be u
 
 ## How does it work
 Save the Datasources you want to connect in form of `[Key, ConnectionFactory]`<br>
-The key returned by the `detectCurrentLookupKey` function is used to select the `ConnectionFactory`.
+The key returned by the `determineCurrentLookupKey` function is used to select the `ConnectionFactory`.
 
     @Bean
     override fun connectionFactory(): ConnectionFactory {
