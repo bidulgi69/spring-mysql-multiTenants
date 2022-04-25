@@ -3,7 +3,7 @@ MySQL 8 with spring boot + r2dbc + <a href="https://github.com/jasync-sql/jasync
 <br><br>
 If you apply CQRS pattern to distribute the database load, it may be necessary to connect to more than one database on one server.
 <br>
-At this time, the AbstractRoutingConnectionFactory supported by R2dbc can be used to determine the DataSource when transaction occurs.
+At this time, the `AbstractRoutingConnectionFactory` supported by R2dbc can be used to determine the DataSource when transaction occurs.
 <br><br>
 <img src="https://user-images.githubusercontent.com/17774927/164944822-3930246d-f70d-40a8-9f56-afdef84c9da4.png">
 <br><br>
@@ -17,10 +17,8 @@ At this time, the AbstractRoutingConnectionFactory supported by R2dbc can be use
 <br><br>
 
 ## How does it work
-<p>
-Save the Datasources you want to connect in form of [Key, ConnectionFactory]<br>
-The key returned by the detectCurrentLookupKey function is used to select the ConnectionFactory.
-</p>
+Save the Datasources you want to connect in form of `[Key, ConnectionFactory]`<br>
+The key returned by the `detectCurrentLookupKey` function is used to select the `ConnectionFactory`.
 
     @Bean
     override fun connectionFactory(): ConnectionFactory {
@@ -36,10 +34,8 @@ The key returned by the detectCurrentLookupKey function is used to select the Co
         return multiTenantRoutingConnectionFactory
     }
 <br>
-<p>
 When a transaction occurs, the function below is called.<br>
-@Transaction annotations can be used to hand over variables that can determine the key to this function.
-</p>
+`@Transaction` annotations can be used to hand over variables that can determine the key.
 
     override fun determineCurrentLookupKey(): Mono<Any> {
         return TransactionSynchronizationManager.forCurrentTransaction()
@@ -60,12 +56,10 @@ When a transaction occurs, the function below is called.<br>
             }
     }
 <br>
-<p>
-Based on the annotated location of @Transactional,<br>
-you can receive "transaction name" value from transactionManager.<br>
+Based on the annotated location of `@Transactional`,<br>
+you can receive "transaction name" value from `transactionManager`.<br>
 It would be something like this... ---> kr.dove.mysql.service.cities (package name + method or class name)<br><br>
-And you can also receive readOnly property from transactionManager. (.isCurrentTransactionReadOnly)
-</p>
+And you can also receive readOnly property from `transactionManager`. (.isCurrentTransactionReadOnly)
 
     @Transactional(
         value = SlaveDataSourceProperties.transactionManager,
@@ -95,7 +89,7 @@ And you can also receive readOnly property from transactionManager. (.isCurrentT
           set global server_id=different value;
 
   4. Creates a user for communication between master and slave. <br>
-     You need to make sure that [[default_authentication_plugin=mysql_native_password]] is set in both cnf files. (Mysql 8)
+     You need to make sure that [[authentication_policy=mysql_native_password]] is set in both cnf files. (Mysql 8)
         
           # Master container
           # bash
@@ -114,7 +108,7 @@ And you can also receive readOnly property from transactionManager. (.isCurrentT
           mysql -uroot -proot
           
           # mysql
-          change master to 
+          mysql> change master to 
           master_host='172.22.0.3',
           master_user='slave',
           master_password='password',
@@ -123,7 +117,7 @@ And you can also receive readOnly property from transactionManager. (.isCurrentT
           master_log_pos=157;
 
   6. Some variables are from...<br>
-     - The value of "MASTER_HOST" can be found<br> by inquiring about the docker network to which the current containers belong.
+     - The value of `MASTER_HOST` can be found<br> by inquiring about the docker network to which the current containers belong.
         
             docker inspect f997b87515bb(network name) | jq
             [
@@ -154,7 +148,7 @@ And you can also receive readOnly property from transactionManager. (.isCurrentT
               }
             ]
             
-     - "MASTER_LOG_FILE" and "MASTER_LOG_POS" values can be found<br> by executing this command in the master MySQL server.
+     - `MASTER_LOG_FILE` and `MASTER_LOG_POS` values can be found<br> by executing this command in the master MySQL server.
 
             # Master container
             # mysql
@@ -175,7 +169,7 @@ And you can also receive readOnly property from transactionManager. (.isCurrentT
             // View the slave connection status 
             show slave status \G;
 
-  8. If you can find
+  8. If you found
       
             Slave_IO_Running: Yes,
             Slave_SQL_Running: Yes,
