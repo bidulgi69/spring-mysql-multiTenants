@@ -34,8 +34,9 @@ The key returned by the `determineCurrentLookupKey` function is used to select t
         return multiTenantRoutingConnectionFactory
     }
 <br>
+
 When a transaction occurs, the function below is called.<br>
-`@Transaction` annotations can be used to hand over variables that can determine the key.
+`@Transactional` annotations can be used to hand over variables that can determine the key.
 
     override fun determineCurrentLookupKey(): Mono<Any> {
         return TransactionSynchronizationManager.forCurrentTransaction()
@@ -56,6 +57,7 @@ When a transaction occurs, the function below is called.<br>
             }
     }
 <br>
+
 Based on the annotated location of `@Transactional`,<br>
 you can receive "transaction name" value from `transactionManager`.<br>
 It would be something like this... ---> kr.dove.mysql.service.cities (package name + method or class name)<br><br>
@@ -89,7 +91,7 @@ And you can also receive readOnly property from `transactionManager`. (.isCurren
           set global server_id=different value;
 
   4. Creates a user for communication between master and slave. <br>
-     You need to make sure that [[authentication_policy=mysql_native_password]] is set in both cnf files. (Mysql 8)
+     You need to make sure that `authentication_policy=mysql_native_password` is set in both cnf files. (Mysql 8)
         
           # Master container
           # bash
