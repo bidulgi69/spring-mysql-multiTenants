@@ -86,7 +86,7 @@ And you can also receive readOnly property from `transactionManager`. (.isCurren
 
           show variables like 'server_id';
 
-  3. [Optinal] If two servers have the same server_id, sets the server_id for one server differently.
+  3. [optional] If two servers have the same server_id, sets the server_id for one server differently.
   
           set global server_id=different value;
 
